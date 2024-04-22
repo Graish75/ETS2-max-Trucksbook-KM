@@ -10,7 +10,7 @@ int setSpeed(){
         if(speed <= 0){
             printf("\nNon puoi specificare una velocità negativa.\n");
         }
-        else if(speed > 100 & speed < 181){
+        else if(speed > 100 && speed < 181){
             printf("\nAttenzione, questo viaggio potrebbe essere contato nelle statistiche gara.\n");
         }
         else if(speed < 100 && speed > 0){
@@ -23,9 +23,9 @@ int setSpeed(){
     return speed;
 }
 
-int timeCalcBefore(double strt_km, double speed){
+void timeCalcBefore(double strt_km, double speed){
     double irl_km, irl_raw, irl_raw_m, irl_raw_s, irl_h, irl_m, irl_s;
-    irl_km = strt_km * 0.102;
+    irl_km = strt_km/15.56;
     irl_raw = irl_km/speed;
     double irl_raw_dec = modf(irl_raw, &irl_h);
 
@@ -58,7 +58,7 @@ int timeCalcBefore(double strt_km, double speed){
 
 void timeCalc(double g_km, double speed){
     double irl_km, irl_raw, irl_raw_m, irl_raw_s, irl_h, irl_m, irl_s;
-    irl_km = g_km * 0.102;
+    irl_km = g_km/15.56;
     irl_raw = irl_km/speed;
     double irl_raw_dec = modf(irl_raw, &irl_h);
 
