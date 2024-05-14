@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <stdbool.h>
 #include <math.h>
 
@@ -89,7 +91,7 @@ void timeCalc(double g_km, double speed){
     printf("\nTempo di percorrenza (in base ai km massimi) stimato: %.0f h, %.0f m, %.0f s.\n",irl_h,irl_m,irl_s);
 }
 
-void kmCalc(){
+int kmCalc(){
     double km_strt, km_max, adding;
     do{
         printf("\nInserisci i km iniziali: ");
@@ -112,10 +114,49 @@ void kmCalc(){
         timeCalcBefore(km_strt, speed);
         timeCalc(km_max, speed);
     }while(km_strt <= 0);
+    int select, ret_code;
+    do{
+        printf("\n=== MENU DI SELEZIONE ===\n\n1. Fai un'altro calcolo\n2. Esci dal programma\n3. Altre funzionalità in arrivo...\n");
+        scanf("%d",&select);
+        switch(select){
+            case 1:
+                ret_code = 1;
+                break;
+            case 2:
+                ret_code = 2;
+                break;
+            case 3:
+                ret_code = 3;
+                break;
+            default:
+                ret_code = 0;
+                exit(0);
+        }
+    }while(select < 0);
+    return ret_code;
+}
+
+int kmCalcStart(){
+    int ret_code = kmCalc();
+    return ret_code;
 }
 
 void main() {
     do{
-        kmCalc();
+        int ret_code = kmCalcStart();
+        if(ret_code == 0 || ret_code == 2){
+            ret_code = 0;
+            printf("\nGrazie per aver usato il nostro programma!\n");
+            exit(0);
+        }
+        else if(ret_code == 1){
+            ret_code = 0;
+            ret_code = kmCalcStart();
+        }
+        else if(ret_code == 3){
+            printf("\nQuesta funzionalità sarà disponibile nella prossima versione del programma!\n");
+            ret_code = 0;
+            exit(0);
+        }
     }while(true);
 }
